@@ -1,0 +1,20 @@
+import type {
+  ActionFunction,
+  LinksFunction,
+  LoaderFunction,
+  MetaFunction,
+} from 'remix';
+
+export const links: LinksFunction = () => [];
+export const meta: MetaFunction = () => ({
+  title: '{{name}}',
+});
+
+export const loader: LoaderFunction = async () => ({});
+export const action: ActionFunction = async () => ({});
+
+export default function {{pascalCase name}}() {
+  return (
+    <h1>Hello {{name}}!</h1>
+  );
+}
