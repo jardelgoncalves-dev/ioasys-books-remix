@@ -27,7 +27,7 @@ export default function Login() {
   return (
     <main className="container">
       <h1>
-        <Logo /> Ioasys
+        <Logo /> Books
       </h1>
       <form method="post">
         <Input label="Email" type="email" name="email" placeholder="Email" />
