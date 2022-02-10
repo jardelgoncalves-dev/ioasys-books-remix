@@ -1,4 +1,7 @@
 /* Input */
+.input {
+  position: relative;
+}
 .input-container {
   position: relative;
   height: 3.75rem;
@@ -41,4 +44,42 @@
   line-height: 1rem;
   color: #FFFFFF;
   opacity: 0.5;
+}
+
+
+/* Tooltip */
+.tooltip {
+  display: none;
+  height: 3.75rem;
+  max-width: 23rem;
+  width: 100%;
+  position: absolute;
+  bottom: calc(-3.75rem + -1rem);
+  left: 0;
+  background-color: hsla(0, 0%, 60%, 0.8);
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 700;
+  backdrop-filter: blur(2px);
+  z-index: 99;
+}
+
+.tooltip.--show {
+  display: block;
+}
+
+.tooltip-container {
+  padding: 1rem;
+  position: relative;
+}
+
+.tooltip-container::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 20px;
+    background-color: hsla(0, 0%, 60%, 0.8);
+    width: 16px;
+    height: 8px;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
