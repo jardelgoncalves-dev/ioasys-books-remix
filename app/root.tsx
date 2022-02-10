@@ -6,9 +6,35 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'remix';
-import type { MetaFunction } from 'remix';
+import type { MetaFunction, LinksFunction } from 'remix';
 
-export const meta: MetaFunction = () => ({ title: 'New Remix App' });
+import globalStyle from '~/styles/global.css';
+import componentsStyle from '~/styles/components.css';
+
+export const meta: MetaFunction = () => ({ title: 'Ioasys Books' });
+export const links: LinksFunction = () => [
+  {
+    rel: 'preconnect',
+    href: 'https://fonts.googleapis.com',
+  },
+  {
+    rel: 'preconnect',
+    href: 'https://fonts.gstatic.com',
+    crossOrigin: 'anonymous',
+  },
+  {
+    rel: 'stylesheet',
+    href: 'https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500&display=swap',
+  },
+  {
+    rel: 'stylesheet',
+    href: globalStyle,
+  },
+  {
+    rel: 'stylesheet',
+    href: componentsStyle,
+  },
+];
 
 export default function App() {
   return (

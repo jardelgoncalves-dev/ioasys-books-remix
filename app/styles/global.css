@@ -1,0 +1,42 @@
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body, input, button, select, textarea {
+  font-family: 'Heebo', sans-serif;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+}
+
+button, a {
+  cursor: pointer;
+}
+
+
+button:focus, select:focus, textarea:focus {
+  box-shadow: 0 0 0 0.25rem rgba(240, 240, 240, 0.25);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.--no-scroll {
+  overflow: hidden;
+}
