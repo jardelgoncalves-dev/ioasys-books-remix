@@ -46,3 +46,10 @@ input:-webkit-autofill:active {
 .--no-scroll {
   overflow: hidden;
 }
+
+.--ellipsis {
+  width: 8.4375rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
