@@ -37,6 +37,12 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: #ffffff !important;
 }
 
+.max-viewport {
+  max-width: 1110px;
+  width: 100%;
+  margin: 0 auto;
+}
+
 .--no-scroll {
   overflow: hidden;
 }
