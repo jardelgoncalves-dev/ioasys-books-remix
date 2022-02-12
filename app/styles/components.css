@@ -147,3 +147,44 @@
   font-size: 0.75rem;
 }
 
+/* Pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.pagination__text {
+  font-size: 12px;
+  line-height: 20px;
+  color: #333333;
+  margin-right: 0.5rem;
+}
+
+.pagination__text strong {
+  font-weight: 500;
+}
+
+.pagination button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+  background-color: transparent;
+  border: 1px solid rgba(51, 51, 51, 0.2);
+  font-size: 0;
+  line-break: 2rem;
+}
+
+.pagination button[aria-disabled=true] {
+  cursor: default;
+  pointer-events: none;
+}
+
+.pagination button[aria-disabled=true] svg path {
+  stroke: rgba(51, 51, 51, 0.2);
+}
+
+.pagination .pagination__button-left {
+  transform: rotate(180deg);
+}
