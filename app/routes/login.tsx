@@ -34,8 +34,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (session.has(TOKEN_KEY)) {
     return redirect('/');
   }
-
-  return null;
+  return {};
 };
 
 export const action: ActionFunction = async ({ request }) => {
