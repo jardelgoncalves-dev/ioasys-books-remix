@@ -86,7 +86,7 @@
 
 /* Card Book */
 .card-book {
-  min-width: 16.9rem;
+  min-width: 16rem;
   flex: 1;
   height: 10rem;
   background-color: #FFFFFF;
