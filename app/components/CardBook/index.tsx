@@ -5,10 +5,11 @@ type CardBookProps = Book & {
 };
 
 export const CardBook = ({
+  id,
   title,
   cover,
   authors,
-  totalPages,
+  pageCount,
   publisher,
   published,
   onClick,
@@ -19,10 +20,11 @@ export const CardBook = ({
       className="card-book"
       onClick={() =>
         onClick?.({
+          id,
           title,
           cover,
           authors,
-          totalPages,
+          pageCount,
           publisher,
           published,
         })
@@ -33,7 +35,7 @@ export const CardBook = ({
         <h2 className="--ellipsis">{title}</h2>
         <h3 className="--ellipsis">{authors}</h3>
         <p className="card-book__content__info --ellipsis">
-          <span>{totalPages} páginas</span>
+          <span>{pageCount} páginas</span>
           <span>{publisher}</span>
           <span>Publicado em {published}</span>
         </p>
