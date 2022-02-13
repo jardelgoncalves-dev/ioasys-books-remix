@@ -1,0 +1,70 @@
+body {
+  background-image: url("/images/bg-blur.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-weight: 300;
+  font-size: 28px;
+  line-height: 40px;
+  color: #333333;
+}
+
+.logo svg {
+  width: 104px;
+  height: 36px;
+}
+
+.header h1 svg {
+  margin-right: .75rem;
+}
+
+.header nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header .button-logout {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid rgba(51, 51, 51, 0.2);
+  transform: matrix(-1, 0, 0, 1, 0, 0);
+  border-radius: 16px;
+  font-size: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header .welcome {
+  font-size: 12px;
+  line-height: 16px;
+  color: #333333;
+}
+
+.header .welcome strong {
+  font-weight: 500;
+}
+
+.list-books {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  transition: opacity 0.2s;
+}
