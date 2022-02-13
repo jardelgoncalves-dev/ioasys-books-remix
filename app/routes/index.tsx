@@ -1,5 +1,13 @@
-import { LinksFunction } from 'remix';
+import { LinksFunction, LoaderFunction, redirect, useLoaderData } from 'remix';
+import { api } from '~/api/api';
+import { CardBook } from '~/components/CardBook';
+import { Pagination } from '~/components/Pagination';
+import { usePagination } from '~/hooks/use-pagination';
+import { Book } from '~/interfaces/book';
 import homeStyle from '~/styles/pages/home.css';
+import { getBooksByPage } from '~/useCases/get-books-by-page';
+import { REFRESH_KEY, TOKEN_KEY, USER_LOGGED } from '~/utils/constants';
+import { getSession } from '~/utils/session';
 
 export const links: LinksFunction = () => [
   {
@@ -8,7 +16,34 @@ export const links: LinksFunction = () => [
   },
 ];
 
+export const loader: LoaderFunction = async ({ request }) => {
+  const session = await getSession(request.headers.get('Cookie'));
+  if (!session.has(TOKEN_KEY)) {
+    return redirect('/login');
+  }
+
+  const username = session.get(USER_LOGGED);
+
+  api.defaults.headers.common['Authorization'] = `Bearer ${session.get(
+    TOKEN_KEY,
+  )}`;
+  api.defaults.headers.common['refresh-token'] = `${session.get(REFRESH_KEY)}`;
+
+  const data = await getBooksByPage();
+
+  return {
+    user: {
+      username,
+    },
+    books: data,
+  };
+};
+
 export default function Index() {
+  const { user, books } = useLoaderData();
+  const { hasNextPage, hasPrevPage, nextPage, page, prevPage } =
+    usePagination(100);
+
   return (
     <main className="max-viewport">
       <header className="header">
@@ -32,30 +67,47 @@ export default function Index() {
         </h1>
         <nav>
           <span className="welcome">
-            Bem vindo, <strong>Guilherme!</strong>
+            Bem vindo, <strong>{user?.username ?? 'User'}!</strong>
           </span>
-          <button className="button-logout" aria-label="Sair">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M11 4L15 8M15 8L11 12M15 8L4.5 8"
-                stroke="#333333"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M6.5 1H3C1.89543 1 1 1.89543 1 3V13C1 14.1046 1.89543 15 3 15H6.5"
-                stroke="#333333"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
+          <form action="/logout" method="post">
+            <button className="button-logout" aria-label="Sair">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 4L15 8M15 8L11 12M15 8L4.5 8"
+                  stroke="#333333"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M6.5 1H3C1.89543 1 1 1.89543 1 3V13C1 14.1046 1.89543 15 3 15H6.5"
+                  stroke="#333333"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </form>
         </nav>
       </header>
+      <section>
+        <section className="list-books">
+          {books?.items?.map((book: Book) => (
+            <CardBook key={book.id} {...book} />
+          ))}
+        </section>
+        <Pagination
+          hasNextPage={hasNextPage}
+          hasPrevPage={hasPrevPage}
+          page={page}
+          totalPage={books?.totalPages}
+          nextPage={nextPage}
+          prevPage={prevPage}
+        />
+      </section>
     </main>
   );
 }
