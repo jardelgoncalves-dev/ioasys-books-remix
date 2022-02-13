@@ -1,8 +1,9 @@
 export type Book = {
+  id: string;
   title: string;
   authors: string;
   cover?: string;
-  totalPages: string;
+  pageCount: number;
   publisher: string;
-  published: string;
+  published: number;
 };
