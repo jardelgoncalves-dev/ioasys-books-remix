@@ -6,7 +6,7 @@ import { usePagination } from '~/hooks/use-pagination';
 import { Book } from '~/interfaces/book';
 import homeStyle from '~/styles/pages/home.css';
 import { getBooksByPage } from '~/useCases/get-books-by-page';
-import { REFRESH_KEY, TOKEN_KEY, USER_LOGGED } from '~/utils/constants';
+import { REFRESH_KEY, TOKEN_KEY } from '~/utils/constants';
 import { getSession } from '~/utils/session';
 
 export const links: LinksFunction = () => [
@@ -22,27 +22,24 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect('/login');
   }
 
-  const username = session.get(USER_LOGGED);
-
   api.defaults.headers.common['Authorization'] = `Bearer ${session.get(
     TOKEN_KEY,
   )}`;
   api.defaults.headers.common['refresh-token'] = `${session.get(REFRESH_KEY)}`;
 
-  const data = await getBooksByPage();
+  const url = new URL(request.url);
+  const pageParam = Number(url.searchParams.get('page'));
+  const page = Number.isNaN(pageParam) ? 1 : Math.max(1, pageParam);
 
-  return {
-    user: {
-      username,
-    },
-    books: data,
-  };
+  return await getBooksByPage(request, page);
 };
 
 export default function Index() {
   const { user, books } = useLoaderData();
-  const { hasNextPage, hasPrevPage, nextPage, page, prevPage } =
-    usePagination(100);
+  const { hasNextPage, hasPrevPage, nextPage, page, prevPage } = usePagination(
+    100,
+    books.page,
+  );
 
   return (
     <main className="max-viewport">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-export const usePagination = (maxPage: number) => {
-  const [page, setPage] = useState(1);
+export const usePagination = (maxPage: number, currentPage = 1) => {
+  const [page, setPage] = useState(currentPage);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [hasPrevPage, setHasPrevPage] = useState(false);
 
