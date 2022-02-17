@@ -60,6 +60,10 @@ body {
   font-weight: 500;
 }
 
+.container {
+  padding-bottom: 3rem;
+}
+
 .list-books {
   display: flex;
   flex-direction: row;

@@ -93,7 +93,7 @@ export default function Index() {
           </form>
         </nav>
       </header>
-      <section>
+      <section className="container">
         <section className="list-books">
           {books?.items?.map((book: Book) => (
             <CardBook key={book.id} onClick={handleSelectBook} {...book} />
