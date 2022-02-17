@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'remix';
 
-export const usePagination = (maxPage: number) => {
-  const [page, setPage] = useState(1);
+export const usePagination = (maxPage: number, currentPage = 1) => {
+  const [page, setPage] = useState(currentPage);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [hasPrevPage, setHasPrevPage] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (page >= maxPage) {
       setHasNextPage(false);
@@ -21,10 +22,12 @@ export const usePagination = (maxPage: number) => {
 
   const nextPage = () => {
     setPage(page + 1);
+    navigate(`/?page=${page + 1}`);
   };
 
   const prevPage = () => {
     setPage(page - 1);
+    navigate(`/?page=${page - 1}`);
   };
 
   return {

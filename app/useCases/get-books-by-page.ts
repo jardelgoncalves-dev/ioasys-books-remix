@@ -1,7 +1,9 @@
 import { redirect } from 'remix';
 import { api } from '~/api/api';
 import { Book } from '~/interfaces/book';
-import { retryApiCallUnauthorized } from '~/utils/retry-api-call-unauthorized';
+import { USER_LOGGED } from '~/utils/constants';
+import { renewTokenApiCallUnauthorized } from '~/utils/renew-token-api-call-unauthorized';
+import { getSession } from '~/utils/session';
 
 type BookResponse = {
   authors: Array<string>;
@@ -19,21 +21,33 @@ type BookResponse = {
 };
 
 type Response = {
-  page: number;
-  totalPages: number;
-  items: Array<BookResponse>;
+  user: {
+    username: string;
+  };
+  books: {
+    page: number;
+    totalPages: number;
+    items: Array<BookResponse>;
+  };
 };
 
-export const getBooksByPage = async (page = 1) => {
-  try {
-    return await retryApiCallUnauthorized<Response>(async () => {
-      const { data: response } = await api.get('/books', {
-        params: {
-          page,
-          amount: 12,
-        },
-      });
-      return {
+export const getBooksByPage = async (request: Request, page = 1) => {
+  const callApi = async () => {
+    const { data: response } = await api.get('/books', {
+      params: {
+        page,
+        amount: 12,
+      },
+    });
+
+    const session = await getSession(request.headers.get('Cookie'));
+    const username = session.get(USER_LOGGED);
+
+    return {
+      user: {
+        username,
+      },
+      books: {
         page: response.page,
         totalPages: Math.ceil(response.totalPages),
         items: response.data.map(
@@ -45,10 +59,23 @@ export const getBooksByPage = async (page = 1) => {
             publisher: item.publisher,
             published: item.published,
             pageCount: item.pageCount,
+            language: item.language,
+            isbn10: item.isbn10,
+            isbn13: item.isbn13,
+            description: item.description,
           }),
         ),
-      };
-    });
+      },
+    };
+  };
+
+  try {
+    return await renewTokenApiCallUnauthorized<Response>(
+      callApi,
+      request,
+      `/?page=${page}`,
+      '/login',
+    );
   } catch {
     return redirect('/logout');
   }

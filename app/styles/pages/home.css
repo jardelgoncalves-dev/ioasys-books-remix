@@ -60,6 +60,10 @@ body {
   font-weight: 500;
 }
 
+.container {
+  padding-bottom: 3rem;
+}
+
 .list-books {
   display: flex;
   flex-direction: row;
@@ -67,4 +71,82 @@ body {
   gap: 1rem;
   margin-bottom: 1rem;
   transition: opacity 0.2s;
+}
+
+.book-container {
+  display: flex;
+  gap: 3rem;
+  width: 100%;
+}
+
+.book-container__content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 2rem;
+}
+
+.book-container__content .title h1 {
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 40px;
+  color: #333333;
+}
+
+.book-container__content .title p {
+  font-size: 12px;
+  line-height: 20px;
+  color: #AB2680;
+}
+
+.book-container__content .informations h3,
+.book-container__content .informations p {
+  font-size: 12px;
+  line-height: 28px;
+  color: #333333;
+}
+
+.book-container__content .informations h3 {
+  text-transform: uppercase;
+}
+
+.book-container__content .informations p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.book-container__content .informations p span:last-child {
+  color: #999999;
+}
+
+.book-container__content .description h3,
+.book-container__content .description p {
+  font-size: 12px;
+  line-height: 28px;
+  color: #333333;
+}
+
+.book-container__content .description h3 {
+  text-transform: uppercase;
+}
+
+.book-container__content .description p {
+  color: #999999;
+  overflow-y: auto;
+  height: 90px;
+}
+
+.book-container::-webkit-scrollbar-thumb {
+  background-color: #AB2680;
+}
+.book-container::-webkit-scrollbar {
+  width: 0.25rem;
+  border-radius: 4px;
+}
+.book-container__content .description p::-webkit-scrollbar-thumb {
+  background-color: #AB2680;
+}
+.book-container__content .description p::-webkit-scrollbar {
+  width: 0.25rem;
+  border-radius: 4px;
 }
