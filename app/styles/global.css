@@ -53,3 +53,11 @@ input:-webkit-autofill:active {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.--only-2-lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

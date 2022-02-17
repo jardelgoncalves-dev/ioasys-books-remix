@@ -188,3 +188,50 @@
 .pagination .pagination__button-left {
   transform: rotate(180deg);
 }
+
+/* ModalBook */
+.react-modal__overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.react-modal__content {
+  position: relative;
+  max-width: 760px;
+  max-height: 600px;
+  height: 100%;
+  width: 100%;
+  background-color: #FFFFFF;
+  border-radius: 0.25rem;
+  padding: 3rem;
+}
+
+.react-modal__close {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  border: 0;
+  font-size: 0;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 1rem;
+  background: #FFFFFF;
+  border: 1px solid rgba(51, 51, 51, 0.2);
+}
+
+.react-modal__close svg path {
+  transition: all 0.2s;
+  stroke: #333333;
+}
+
+.react-modal__close:hover svg path {
+  stroke: rgb(178, 46, 111);
+}

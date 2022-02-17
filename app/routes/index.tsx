@@ -1,7 +1,9 @@
 import { LinksFunction, LoaderFunction, redirect, useLoaderData } from 'remix';
 import { api } from '~/api/api';
 import { CardBook } from '~/components/CardBook';
+import { ModalBook } from '~/components/ModalBook';
 import { Pagination } from '~/components/Pagination';
+import { useSelectBook } from '~/hooks/use-book-modal';
 import { usePagination } from '~/hooks/use-pagination';
 import { Book } from '~/interfaces/book';
 import homeStyle from '~/styles/pages/home.css';
@@ -36,6 +38,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Index() {
   const { user, books } = useLoaderData();
+  const { book, handleSelectBook } = useSelectBook();
   const { hasNextPage, hasPrevPage, nextPage, page, prevPage } = usePagination(
     100,
     books.page,
@@ -93,7 +96,7 @@ export default function Index() {
       <section>
         <section className="list-books">
           {books?.items?.map((book: Book) => (
-            <CardBook key={book.id} {...book} />
+            <CardBook key={book.id} onClick={handleSelectBook} {...book} />
           ))}
         </section>
         <Pagination
@@ -103,6 +106,11 @@ export default function Index() {
           totalPage={books?.totalPages}
           nextPage={nextPage}
           prevPage={prevPage}
+        />
+        <ModalBook
+          book={book}
+          isOpen={!!book}
+          handleRequestClose={() => handleSelectBook(null)}
         />
       </section>
     </main>
